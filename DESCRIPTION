@@ -1,0 +1,38 @@
+Package: StochasticPQRUT
+Type: Package
+Title: Functions for Stochastic PQRUT
+Version: 0.0.1
+Author: Valeriya
+Maintainer: Who to complain to <yourfault@somewhere.net>
+Description: More about what it does (maybe more than one line)
+License: What license is it under?
+LazyData: TRUE
+RoxygenNote: 6.0.1
+Suggests: knitr,
+    rmarkdown
+VignetteBuilder: knitr
+Imports: 
+ Hmisc,
+ corpcor,
+ extRemes,
+ GGally,
+ ggplot2,
+ tmvtnorm,
+ doParallel,
+ foreach,
+ parallel,
+ RColorBrewer
+Collate: 
+    'Asmoothcor.R'
+    'GlobFlfreq1bstr.R'
+    'snowsim.R'
+    'PQRUTmodln1a.R'
+    'Pqruts1mqsln24100000matrsn1lapply.R'
+    'Rfreqseasn.R'
+    'crtduration.R'
+    'data.R'
+    'hyetogs.R'
+    'initcondPQRUT.R'
+    'simInitcond.R'
+    'smrainflFt624intmatr100000lapply.R'
+    'tmSim.R'

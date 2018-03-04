@@ -1,0 +1,161 @@
+---
+title: "Vignette"
+# author: "Valeriya Filipova"
+# date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+This R package implements the Stochastic PQRUT model, which performs flood frequency analysis of simulated discharge values.The model simulates Precipitation, temperature  and initial conditions and uses deterministic rainfall-runoff model PQRUT to obtain the final discharge values. The return periods are estimated using plotting positions. The analysis is performed using seasonal values but currently the seasonal split is hard coded to season 1= "9-11","12-2","3-5","6-8".
+
+
+Workflow
+```{r include=FALSE}
+library(StochasticPQRUT)
+ set.seed(123)
+  data(Qd)
+  data(P)
+    data(SWE)
+  data(sl)  
+    data(p1)
+  data(h1)
+    data(Qh)
+       data(Td)
+```
+
+1. Load the library and define the number of simulations
+```{r echo=TRUE}
+library(StochasticPQRUT)
+ set.seed(123)
+  Nsim=2000
+```
+
+
+2. Find critical duration - the duration of the storm event that results in maximum discharge. For this Precipitation and Discharge with  daily timestep are used. Sample data for Hørte (stN 16.193) is included in this package.
+```{r echo=TRUE, fig.height=5, fig.width=5,message=FALSE}
+  data(Qd);data(P)
+   head(Qd); head(P)
+```
+
+POT events are extracted over the quantile, specified by qtT and seperated by number of days intEvent (using extRemes). This is performed for predifined seasons, as explained earlier. Then these events are correlated to the Precipition on 1,2,3 days before the peak. 
+```{r fig.height=5, fig.width=5}
+a=criticalduration(Q=Qd,P=P,qtT=0.9,PDFplots=FALSE,intEvent=7,writeResults=FALSE)
+```
+
+The function returns a list, containing the critical duration and dataframes for the extracted POT for each season. 
+
+
+3. Split the precipitation values into seasons and fit GPD or Exponential distribution to POT events using the extRemes package. The qFtset,qWtset,qWtset,qSptset are the threshold quantiles that are used to extract POT events. These events might not coincide with the events, extracted in step 1.
+```{r echo=TRUE, fig.height=5, fig.width=5,message=FALSE}
+
+d=rainPOT(datarainfall=P,pathmain,durt=24,qFtset=0.94,qWtset=0.95,qSptset=0.98,qStset=0.94,distfunc="GP",
+          writeResults=FALSE,PDFplots=FALSE)
+```
+
+4.Extract initial conditions (Snow water equivalent, soil moisture deficit and initial discharge) for the POT flood events, identified in step 1. In this case, the data has been generated using the model hydrological model DDD. 
+<div class = "row">
+<div class = "col-md-6">
+```{r echo=TRUE}
+  data(sl);data(SWE);data(Td)
+   head(sl); head(SWE); head(Td)
+```
+</div>
+
+
+The function returns a list of initial conditions  for the given seasons.
+```{r echo=TRUE, fig.height=10, fig.width=10, warning=FALSE,message=FALSE}
+
+b=initcond(Qobs=Qd,sl=sl,
+           POTF=a$POTF,POTW=a$POTW,POTSp=a$POTSp,POTS=a$POTS,SWE=SWE,Td=Td,durt=a$d,PDFplots=FALSE,writeResults=FALSE)
+
+```
+
+5.Extract hyetographs for flood events. This function matches the dates for the POT events with hourly rainfall data.
+```{r echo=TRUE, fig.height=5, fig.width=5, warning=FALSE,message=FALSE}
+#load data data(p1)
+head(p1)
+h=stormp(prpFt=d$pF,prpWt=d$PW,prpSpt=d$PSp,prpSt=d$PS,p1 = p1,durt=24,writeResults=FALSE,PDFplots=FALSE)
+```
+
+6. Extract temperature sequence. Similarly to 4, the function matches POT events with hourly Temperature data
+```{r echo=TRUE, fig.height=5, fig.width=5, warning=FALSE,message=FALSE}
+#load data data(h1)
+head(h1)
+h1=temprsim(incondFt=b$ntp1F,incondWt=b$ntp1W,incondSpt=b$ntp1Sp,incondSt=b$ntp1S,durt=24,tm=h1,writeResults=FALSE,PDFplots=FALSE)
+```
+
+7. Simulate initial conditions. The truncated multivariate normal distribution is used to simulate values. The simulated values are within the limits of the observed series. 
+```{r echo=TRUE, fig.height=5, fig.width=10, warning=FALSE, message=FALSE}
+layout(matrix(1:4, nrow=2))
+gincon=initconditions(incondFt=b$ntp1F,incondWt=b$ntp1W,incondSpt=b$ntp1Sp,incondSt=b$ntp1S, Nsim=Nsim,durt=a$d,writeResults=FALSE,PDFplots=FALSE)
+#plot for season "09-11"
+print(gincon$plot1)
+```
+
+8.Simulate precipitation and temperature values and disaggregate to 1 hour. This function uses the parameters of the GPD , obtained in step 2 and the results of step 5 and step 6.
+```{r echo=TRUE, fig.height=5, fig.width=5, warning=FALSE,message=FALSE}
+ h=simulateP(Nsim=Nsim,durt=24,distfunc="GP",hyet=h,TempSeq=h1,Pexp=d$par,writeResults=FALSE,PDFplots=FALSE)
+```
+
+9. Simulate discharge values. The model PQRUt is used to simulat discharge values. 
+```{r echo=TRUE, fig.height=5, fig.width=5, warning=FALSE,message=FALSE}
+
+gFT= hydrolsim(seasn="Ft",param.station=c(0.1138,0.02842,19.85),Nsim=Nsim,int1=gincon$SWEFt,Pt=as.matrix(h[[1]]),E=h[[5]],durt=24,Area1=157,kd=3,modelsnow="Snow.sim",slconst=1,snpSpt=0.3,ttsnow=-1,Tmax=0.5,Tmin=0.5,writeResults=FALSE,PDFplots=FALSE)
+gWT= hydrolsim(seasn="Ft",param.station=c(0.1138,0.02842,19.85),Nsim=Nsim,int1=gincon$SWEFt,Pt=as.matrix(h[[2]]),E=h[[6]],durt=24,Area1=157,kd=3,modelsnow="Snow.sim",slconst=1,snpSpt=0.3,ttsnow=-1,Tmax=0.5,Tmin=0.5,writeResults=FALSE,PDFplots=FALSE)
+gSpT= hydrolsim(seasn="Ft",param.station=c(0.1138,0.02842,19.85),Nsim=Nsim,int1=gincon$SWEFt,Pt=as.matrix(h[[3]]),E=h[[7]],durt=24,Area1=157,kd=3,modelsnow="Snow.sim",slconst=1,snpSpt=0.3,ttsnow=-1,Tmax=0.5,Tmin=0.5,writeResults=FALSE,PDFplots=FALSE)
+gST= hydrolsim(seasn="Ft",param.station=c(0.1138,0.02842,19.85),Nsim=Nsim,int1=gincon$SWEFt,Pt=as.matrix(h[[4]]),E=h[[8]],durt=24,Area1=157,kd=3,modelsnow="Snow.sim",slconst=1,snpSpt=0.3,ttsnow=-1,Tmax=0.5,Tmin=0.5,writeResults=FALSE,PDFplots=FALSE)
+
+```
+
+10. Calculate the return levels. This function uses plotting positions to estimate the return periods and returns a list of return levels.
+```{r echo=TRUE, fig.height=5, fig.width=5,warning=FALSE,message=FALSE}
+
+gsim=list(Ft=gFT,Wt=gWT,Spt=gSpT,St=gST)
+  d1=d[2:5]
+  m1=annualfreqplot(qtT=0.9,Nsim=Nsim,durt=24,qobs=Qh,Pint=h[10:13],incond=gincon,nsy=d1,Qsim=gsim,writeResults=FALSE,PDFplots=FALSE)
+```
+
+
+
+
+<!-- ## Styles -->
+
+<!-- The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows: -->
+
+<!--     output:  -->
+<!--       rmarkdown::html_vignette: -->
+<!--         css: mystyles.css -->
+
+
+<!-- ## Figures -->
+
+<!-- The figure sizes have been customised so that you can easily put two images side-by-side.  -->
+
+<!-- ```{r, fig.show='hold'} -->
+<!-- plot(1:10) -->
+<!-- plot(10:1) -->
+<!-- ``` -->
+
+<!-- You can enable figure captions by `fig_caption: yes` in YAML: -->
+
+<!--     output: -->
+<!--       rmarkdown::html_vignette: -->
+<!--         fig_caption: yes -->
+
+<!-- Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**. -->
+
+<!-- ## More Examples -->
+
+<!-- You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`. -->
+
+<!-- ```{r, echo=FALSE, results='asis'} -->
+<!-- knitr::kable(head(mtcars, 10)) -->
+<!-- ``` -->
+
+<!-- Also a quote using `>`: -->
+
+<!-- > "He who gives up [code] safety for [code] speed deserves neither." -->
+<!-- ([via](https://twitter.com/hadleywickham/status/504368538874703872)) -->
