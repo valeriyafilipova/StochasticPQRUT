@@ -21,7 +21,8 @@ Imports:
  doParallel,
  foreach,
  parallel,
- RColorBrewer
+ RColorBrewer,
+ cowplot
 Collate: 
     'Asmoothcor.R'
     'GlobFlfreq1bstr.R'
@@ -36,3 +37,5 @@ Collate:
     'simInitcond.R'
     'smrainflFt624intmatr100000lapply.R'
     'tmSim.R'
+
+    

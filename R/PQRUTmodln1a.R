@@ -1,17 +1,17 @@
 #' @export
 #' @include snowsim.R
-PQRUT=function(k,int1,tm1,kd,durt,param.station,modelsnow,snpSpt=snpSpt,Area1,slconst,ttsnow=ttsnow,Tmax,Tmin){
+PQRUT=function(int1,tm1,kd,durt,param.station,snpSpt=snpSpt,Area1,slconst=1,ttsnow=ttsnow,Tmax,Tmin){
 
   # http://www.usask.ca/hydrology/papers/Marks_et_al_2013.pdf
-  #int1 initial conditions, k is the simulation number
-  int1=int1[k,]
+
+ 
   qo=int1[1]*3.6/Area1
   SWE=int1[2]
 
-
+ colnames(tm1)=c("P","E")
 
   #uses snow.sim or snow function to simulate snow
-  if(SWE>snpSpt*sum(tm1$P)|(min(tm1$E)<=ttsnow)&(modelsnow=="Snow.sim")){#no SWE but freezing
+  if(SWE>snpSpt*sum(tm1$P)|(min(tm1$E)<=ttsnow)){#no SWE but freezing
 
     snm=snow.sim(E=tm1$E,P=tm1$P,Tmax=Tmax,Tmin=Tmin,kd=kd/24,kf=0,rcap = 0.2,LSWE_0 = 0,ISWE_0 =SWE )
     Pt1=as.numeric(snm)
@@ -66,7 +66,7 @@ PQRUT=function(k,int1,tm1,kd,durt,param.station,modelsnow,snpSpt=snpSpt,Area1,sl
   }
   Pt1s[Pt1s<0]=0
 
-
+  Pt1s=as.numeric(Pt1s)
   parameters=param.station
 
   ptverdier=data.frame(time=seq(1,durt),prec=Pt1s)
@@ -74,8 +74,7 @@ PQRUT=function(k,int1,tm1,kd,durt,param.station,modelsnow,snpSpt=snpSpt,Area1,sl
 
   #PQRUT model
   # set level in the parameter
-  x=parameters[3]
-  state=c(X=parameters[3])
+  x=qo/(1-exp(-parameters[2]*tst))
 
   q=rep(0,durt)
   for(nev in 1:durt){
@@ -90,11 +89,11 @@ PQRUT=function(k,int1,tm1,kd,durt,param.station,modelsnow,snpSpt=snpSpt,Area1,sl
     }
   }
 
-  discharge <- ((q) * Area1)/3.6
+  discharge <- (as.numeric(q) * Area1)/3.6
 
-  mq=max(discharge)
+ # mq=max(discharge)
   #snow accumulation
   asnm=sum(tm1$Pt)-sum(tm1$P)
   snmSWE=asnm
-  return(c(mq,asnm))
+  return(list(discharge,asnm))
 }

@@ -61,10 +61,12 @@ nptath=paste(pathmain,"/3-timerP/ht1.txt",sep="")
   write.table(tmM1,paste("./",seasn,"/","ts",k,".txt",sep=""))
   }else{
     a[[k]]=tmM1$E
+    
   }
   }
     }
     if(writeResults==FALSE){
+      a=Filter(Negate(is.null),a)
       assign(x = seasn,value = a)
       seasnlist= seasnlist+1
     }

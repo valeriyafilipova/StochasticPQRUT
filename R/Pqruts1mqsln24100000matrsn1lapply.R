@@ -28,7 +28,7 @@
 #' }
 #' @include PQRUTmodln1a.R
 hydrolsim <- function(pathmain=NULL,seasn,param.station,Nsim,int1,Pt,E,durt
-                      ,Area1,kd,modelsnow="Snow.sim",slconst,snpSpt=0.3,ttsnow=-1,Tmax=0.5,Tmin=0.5,writeResults=FALSE,PDFplots=FALSE) {
+                      ,Area1,kd,slconst=1,snpSpt=0.3,ttsnow=-1,Tmax=0.5,Tmin=0.5,writeResults=FALSE,PDFplots=FALSE) {
 
   mq=NULL
   snmSWE=NULL
@@ -50,8 +50,10 @@ hydrolsim <- function(pathmain=NULL,seasn,param.station,Nsim,int1,Pt,E,durt
     qm=foreach(k=1:Nsim,.combine = "rbind") %dopar% {
       tm1=data.frame(P=Pt[,k],E=E[,k])
       ## hydrological model
-      PQRUT(k=k,int1=int1,tm1=tm1,param.station=param.station,kd=kd,durt=durt,modelsnow=modelsnow,Area1=Area1,slconst=slconst,snpSpt = snpSpt
+      int2=int1[k,]
+     a= PQRUT(int1=int1,tm1=tm1,param.station=param.station,kd=kd,durt=durt,Area1=Area1,slconst=slconst,snpSpt = snpSpt
             ,ttsnow = ttsnow,Tmax=Tmax,Tmin=Tmin)
+      return(max(a[[1]]))
     }
     if(writeResults==TRUE){
     write.table(qm,paste(pathmain,"/sim/",seasn,"/SWEsnm.txt",sep=""))
