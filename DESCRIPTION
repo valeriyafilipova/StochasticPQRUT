@@ -1,10 +1,10 @@
 Package: StochasticPQRUT
 Type: Package
 Title: Functions for Stochastic PQRUT
-Version: 0.0.1
-Author: Valeriya
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
+Version: 0.0.2
+Author: Valeriya Filipova <valeriya.filipova@usn.no>
+Maintainer: Valeriya Filipova <valeriya.filipova@usn.no>
+Description: Implements the Stochastic PQRUT model for estimating return levels for flood events
 License: What license is it under?
 LazyData: TRUE
 RoxygenNote: 6.0.1
@@ -22,7 +22,8 @@ Imports:
  foreach,
  parallel,
  RColorBrewer,
- cowplot
+ cowplot,
+ hydroGOF
 Collate: 
     'Asmoothcor.R'
     'GlobFlfreq1bstr.R'

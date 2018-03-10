@@ -42,7 +42,7 @@ criticalduration<- function(Q,P,qtT=0.9,PDFplots=TRUE,intEvent=7,writeResults=TR
 
   #PQ$m=month(PQ$date)
 
-  PQ$m=as.numeric(format(PQ$date,"%m"))
+  PQ$m=as.numeric(format(as.Date(PQ$date),"%m"))
   prptFt=subset(PQ,PQ$m==9|PQ$m==10|PQ$m==11)
   q1Ft=quantile(prptFt$Q,qtT,na.rm = TRUE)
   #Not the best way to treat missing values but for the given stations
@@ -91,7 +91,7 @@ criticalduration<- function(Q,P,qtT=0.9,PDFplots=TRUE,intEvent=7,writeResults=TR
   prptall1=prptall[prptall$diffr>=0&prptall$diffr<=4,]
   prptall1=prptall1[-1,]
  # prptall1$m=month(prptall1$date)
-  prptall1$m=as.numeric(format(prptall1$date,"%m"))
+  prptall1$m=as.numeric(format(as.Date(prptall1$date),"%m"))
 
   #checks the time window between the events and if less than 4, deletes the row
   if(nrow(prptall1)>0){
