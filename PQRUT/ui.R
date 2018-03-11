@@ -6,7 +6,7 @@
 # 
 #    http://shiny.rstudio.com/
 options(shiny.maxRequestSize = 20*1024^2)
-
+options(rsconnect.max.bundle.size=1004572800)
 shinyUI(
   navbarPage("Stochastic PQRUT",
              tabPanel(
@@ -75,7 +75,7 @@ shinyUI(
                  
                ),
                mainPanel( plotOutput("plot2"),
-                          htmlOutput("text2")
+                          tableOutput("table1")
                           )
              )
              ),

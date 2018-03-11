@@ -63,6 +63,9 @@ shinyServer( function(input, output) {
     inFile <- input$h1
     h1 =  read.csv(inFile$datapath)
     
+    inFile <- input$Ph
+    p1 =  read.csv(inFile$datapath)
+    
     inFile <- input$sl
     sl =  read.csv(inFile$datapath)
 
@@ -71,18 +74,18 @@ shinyServer( function(input, output) {
     SWE =  read.csv(inFile$datapath)
 
      a=aR()
-     incProgress(1/5, detail = paste("loading data"))
+     incProgress(0/5, detail = paste("loading data"))
     b=initcond(Qobs=Qd,sl=sl,
                POTF=a$POTF,POTW=a$POTW,POTSp=a$POTSp,POTS=a$POTS,SWE=SWE,Td=Td,durt=input$durt,PDFplots=FALSE,writeResults=FALSE)
    
      d=rainPOT(datarainfall = P,durt=input$durt,qFtset=input$qT1,qWtset=input$qT2,qSptset=input$qT3,qStset=input$qT4,distfunc=input$radio,writeResults = FALSE,PDFplots = FALSE)
-     incProgress(2/5, detail = paste("extracting hyetographs"))
+     incProgress(1/5, detail = paste("extracting hyetographs"))
       h=stormp(prpFt=d$pF,prpWt=d$PW,prpSpt=d$PSp,prpSt=d$PS,p1 = p1,durt=input$durt,writeResults=FALSE,PDFplots=FALSE)
-      incProgress(3/5, detail = paste("extracting T sequence"))
+      incProgress(2/5, detail = paste("extracting T sequence"))
       h1=temprsim(incondFt=b$ntp1F,incondWt=b$ntp1W,incondSpt=b$ntp1Sp,incondSt=b$ntp1S,durt=input$durt,tm=h1,writeResults=FALSE,PDFplots=FALSE)
-      incProgress(4/5, detail = paste("Generating T,P data"))
+      incProgress(3/5, detail = paste("Generating T,P data"))
        h=simulateP(Nsim=input$Nsim,durt=input$durt,distfunc=input$radio,hyet=h,TempSeq=h1,Pexp=d$par,writeResults=FALSE,PDFplots=FALSE)
-       incProgress(5/5, detail = paste("completed"))
+       incProgress(4/5, detail = paste("completed"))
      return(hbd=list(h=h,b=b,d=d))
     })
   })
@@ -102,12 +105,14 @@ output$plot2 <- renderPlot({
   })
   observeEvent(input$do3,{
   
-  output$text2 <- renderUI({
+  output$table1 <- renderTable({
 
   hR1=hR()
   d=hR1$d
-  print(d$param)
+  table1=data.frame("P100 09-11"=format(unname(d$rl[3]),digit=3),"P100 12-02"=format(unname(d$rl[6]),digit=3),
+          "P100 03-05=",format(unname(d$rl[9]),digit=3),"P100 06-08=",format(unname(d$rl[12]),digit=3))
 
+  table1
   })
   })
   
