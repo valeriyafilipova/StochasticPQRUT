@@ -110,7 +110,7 @@ output$plot2 <- renderPlot({
   hR1=hR()
   d=hR1$d
   table1=data.frame("P100 09-11"=format(unname(d$rl[3]),digit=3),"P100 12-02"=format(unname(d$rl[6]),digit=3),
-          "P100 03-05=",format(unname(d$rl[9]),digit=3),"P100 06-08=",format(unname(d$rl[12]),digit=3))
+          "P100 03-05="=format(unname(d$rl[9]),digit=3),"P100 06-08="=format(unname(d$rl[12]),digit=3))
 
   table1
   })
