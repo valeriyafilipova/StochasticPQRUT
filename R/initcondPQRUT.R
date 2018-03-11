@@ -41,7 +41,9 @@ initcond <- function(pathmain=NULL,this.station=NULL,Qobs, Td,sl,POTF,POTW,POTSp
   }
 
   #Merge into a dataframe
-
+  sl$date=as.Date(sl$date,"%Y-%m-%d")
+ SWE$date=as.Date(SWE$date,"%Y-%m-%d")
+  
   seNorge1=merge(Qobs,SWE,by="date",keep="all")
   seNorge2=merge(seNorge1,sl,by="date",keep="all")
   smn1=merge(seNorge2,Td,by="date",keep="all")

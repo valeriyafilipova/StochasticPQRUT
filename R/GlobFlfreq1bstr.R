@@ -37,13 +37,14 @@ annualfreqplot <- function(pathmain=NULL,qtT,Nsim,durt,qobs,Qsim,Pint,nsy,incond
     Qsim1=do.call(rbind,Qsim)
 
   }
+  qobs$Date=as.POSIXct( qobs$Date)
   qobs1=qobs
   seasnm=c(rep(1,Nsim),rep(2,Nsim),rep(3,Nsim),rep(4,Nsim))
   Qsim1=cbind(Qsim1,seasnm)
 
 
  # qobs1$month=month(qobs1$Date)
-  qobs1$month=as.numeric(format(qobs1$Date,"%m"))
+  qobs1$month=as.numeric(format(as.Date(qobs1$Date),"%m"))
 
   if(writeResults==TRUE){
     nsy1=read.csv(paste0(pathmain,"/Exp",durt,"new/P",durt,"Ftnew.txt"))
@@ -61,7 +62,7 @@ annualfreqplot <- function(pathmain=NULL,qtT,Nsim,durt,qobs,Qsim,Pint,nsy,incond
   q1=qobs1[qobs1$q1>quantile(qobs1$Q,qtT),]
 
  # qobs1$date1=year(qobs1$Date)
-  qobs1$date1=as.numeric(format(qobs1$Date,"%Y"))
+  qobs1$date1=as.numeric(format(as.Date(qobs1$Date),"%Y"))
 
   r1=nrow(Qsim1)+1-rank(Qsim1[,1])
   r3=nrow(q1)+1-rank(q1$Q)
@@ -84,8 +85,8 @@ annualfreqplot <- function(pathmain=NULL,qtT,Nsim,durt,qobs,Qsim,Pint,nsy,incond
       nd[i]=NA
     }
   }
-  yr1=as.numeric(format(nsy$Date[nrow(nsy)],"%Y"))
-  yr0=as.numeric(format(nsy$Date[1],"%Y"))
+  yr1=as.numeric(format(as.Date(nsy$Date[nrow(nsy)]),"%Y"))
+  yr0=as.numeric(format(as.Date(nsy$Date[1]),"%Y"))
   # Plotting positions
   if(plotpos=="Gringorten"){
  # T1=(nrow(Qsim1)+0.12)/(r1-0.44)*(year(nsy$Date[nrow(nsy)])-year(nsy$Date[1]))/nrow(nsy)
