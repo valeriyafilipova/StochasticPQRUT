@@ -106,7 +106,7 @@ output$plot2 <- renderPlot({
 
   hR1=hR()
   d=hR1$d
-  print(d$param)
+  print(d$rl)
 
   })
   })

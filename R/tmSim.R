@@ -5,7 +5,7 @@
 #' @param pathmain path to files , not needed if writeResults=FALSE
 #' @param durt critical duration in hours
 #' @param incondFt,incondWt,incondSpt,incondSt dataframes that contain the POT for each season, not needed if writeResults=TRUE
-#' @param tm dataframe of temperature data with 1 hour timestep with columns Date "\%Y-\%m-\%d", time=\%H:\%M:\%S" and value)
+#' @param tm dataframe of temperature data with 1 hour timestep with columns Date "\%d/\%m/\%Y", time=\%H:\%M:\%S" and value)
 #' @return returns csv files that contain temperature series for POT events
 #' @export
 #' @examples
@@ -40,7 +40,7 @@ nptath=paste(pathmain,"/3-timerP/ht1.txt",sep="")
  tm=read.csv(nptath,row.names = NULL,sep=" ")
     }
     tmM=tm
-    tmM$Date=strptime(tmM[,1],"%Y-%m-%d")
+    tmM$Date=strptime(tmM[,1],"%d/%m/%Y")
 
      int1$Date=strptime(int1$date,"%Y-%m-%d")
    int1=subset(int1,int1$Date>=tmM$Date[1]&int1$Date<=tmM$Date[nrow(tmM)])

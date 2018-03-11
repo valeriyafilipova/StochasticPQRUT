@@ -39,7 +39,7 @@ stormp <- function(pathmain=NULL,prpFt,prpWt,prpSpt,prpSt,p1,durt,writeResults=T
       prp$Date=strptime(prp$Date,format="%Y-%m-%d")
 
       pM$Date=paste(pM$V1,pM$V2)
-      pM$Date=strptime(pM$Date,format="%Y-%m-%d %H:%M:%S")
+      pM$Date=strptime(pM$Date,format="%d/%m/%Y %H:%M:%S")
       pM$Day=trunc.POSIXt(pM$Date,unit="day")
       pM$V1=NULL
       pM$V2=NULL
