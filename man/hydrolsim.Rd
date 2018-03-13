@@ -6,8 +6,8 @@
 and initial conditions}
 \usage{
 hydrolsim(pathmain = NULL, seasn, param.station, Nsim, int1, Pt, E, durt,
-  Area1, kd, modelsnow = "Snow.sim", slconst, snpSpt = 0.3, ttsnow = -1,
-  Tmax = 0.5, Tmin = 0.5, writeResults = FALSE, PDFplots = FALSE)
+  Area1, kd, slconst = 1, snpSpt = 0.3, ttsnow = -1, Tmax = 0.5,
+  Tmin = 0.5, writeResults = FALSE, PDFplots = FALSE)
 }
 \arguments{
 \item{pathmain}{path to files, not needed if writeResults=FALSE}
@@ -30,8 +30,6 @@ hydrolsim(pathmain = NULL, seasn, param.station, Nsim, int1, Pt, E, durt,
 
 \item{kd}{coefficient for melting (usually 2-5)}
 
-\item{modelsnow}{type of snow model (Snow.sim or snow)}
-
 \item{slconst}{loss due to infiltration (2 constant loss, 1 all of the precipitation infiltrates until a reservoir is filled up) )}
 
 \item{snpSpt}{percent snow above which the snowmodel is activated}
@@ -41,6 +39,8 @@ hydrolsim(pathmain = NULL, seasn, param.station, Nsim, int1, Pt, E, durt,
 \item{Tmax}{max T for snow melt}
 
 \item{Tmin}{min T for snowmelt}
+
+\item{modelsnow}{type of snow model (Snow.sim or snow)}
 }
 \value{
 csv file with columns Q and snowmelt

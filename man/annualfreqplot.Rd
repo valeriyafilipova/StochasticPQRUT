@@ -16,7 +16,7 @@ annualfreqplot(pathmain = NULL, qtT, Nsim, durt, qobs, Qsim, Pint, nsy,
 
 \item{durt}{critical duration}
 
-\item{qobs}{observed streamflow data;  dataframe with columns Date ("\%Y-\%m-\%d/ \%H:\%M:\%S") and Q, if writeResults=TRUE path to csv file with columns date and Q}
+\item{qobs}{observed streamflow data;  dataframe with columns Date ("\%Y-\%m-\%d \%H:\%M:\%S") and Q, if writeResults=TRUE path to csv file with columns date and Q}
 
 \item{Qsim}{dataframe of simulated streamflow and snowmel data (otput from the function hydrolsim) , not needed if writeResults=TRUE}
 

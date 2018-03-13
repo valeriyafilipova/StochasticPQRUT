@@ -5,8 +5,9 @@ This R package implements the Stochastic PQRUT model,which can be used to derive
 
 An example application is provided in the vignette. The package can be installed by using:
 
-install.packages("githubinstall")
+install.packages("devtools")
 
-library("githubinstall")
+library("devtools")
 
-githubinstall("valeriyafilipova/StochasticPQRUT")
+
+install_github("valeriyafilipova/StochasticPQRUT")

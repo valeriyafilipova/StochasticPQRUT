@@ -1,12 +1,11 @@
 ---
-title: "Vignette"
-# author: "Valeriya Filipova"
-# date: "`r Sys.Date()`"
+title: "Stochastic PQRUT"
+date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::knitr}
+  %\VignetteIndexEntry{Title of your vignette}
+  %\usepackage[UTF-8]{inputenc}
 ---
 
 This R package implements the Stochastic PQRUT model, which performs flood frequency analysis of simulated discharge values.The model simulates Precipitation, temperature  and initial conditions and uses deterministic rainfall-runoff model PQRUT to obtain the final discharge values. The return periods are estimated using plotting positions. The analysis is performed using seasonal values but currently the seasonal split is hard coded to season 1= "9-11",season 2="12-2",season 3="3-5",season 4="6-8".
@@ -15,7 +14,7 @@ This R package implements the Stochastic PQRUT model, which performs flood frequ
 Workflow
 ```{r include=FALSE}
 library(StochasticPQRUT)
- set.seed(456)
+ #set.seed(456)
   data(Qd)
   data(P)
     data(SWE)
@@ -107,6 +106,7 @@ print(gincon$plot1)
 library(hydroGOF)
 
 b1=b[[1]]
+p1$date=as.Date(p1$date,format="%d/%m/%Y")
 b2=match(as.character(b1$date+1),as.character(p1$date))
 data(h1)
 #extrct Precipitation and temperature values
@@ -114,7 +114,7 @@ p_ev=lapply(1:length(b2), function(x) p1[(b2[x]-42):(b2[x]+5),] )
 
 b3=match(as.character(b1$date+1),as.character(as.Date(Qh$Date)))
 q_ev=lapply(1:length(b2), function(x) Qh[(b3[x]-42):(b3[x]+5),] )
-
+h1$date=as.Date(h1$date,format="%d/%m/%Y")
 b4=match(as.character(b1$date+1),as.character(as.Date(h1$date)))
 t_ev=lapply(1:length(b2), function(x) h1[(b4[x]-42):(b4[x]+5),] )
 PT_ev=lapply(1:length(b2), function(x) cbind(p_ev[[x]][3],t_ev[[x]][3]))
@@ -156,45 +156,3 @@ gsim=list(Ft=gFT,Wt=gWT,Spt=gSpT,St=gST)
   d1=d[2:5]
   m1=annualfreqplot(qtT=0.9,Nsim=Nsim,durt=24,qobs=Qh,Pint=h[10:13],incond=gincon,nsy=d1,Qsim=gsim,writeResults=FALSE,PDFplots=FALSE)
 ```
-
-
-
-
-<!-- ## Styles -->
-
-<!-- The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows: -->
-
-<!--     output:  -->
-<!--       rmarkdown::html_vignette: -->
-<!--         css: mystyles.css -->
-
-
-<!-- ## Figures -->
-
-<!-- The figure sizes have been customised so that you can easily put two images side-by-side.  -->
-
-<!-- ```{r, fig.show='hold'} -->
-<!-- plot(1:10) -->
-<!-- plot(10:1) -->
-<!-- ``` -->
-
-<!-- You can enable figure captions by `fig_caption: yes` in YAML: -->
-
-<!--     output: -->
-<!--       rmarkdown::html_vignette: -->
-<!--         fig_caption: yes -->
-
-<!-- Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**. -->
-
-<!-- ## More Examples -->
-
-<!-- You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`. -->
-
-<!-- ```{r, echo=FALSE, results='asis'} -->
-<!-- knitr::kable(head(mtcars, 10)) -->
-<!-- ``` -->
-
-<!-- Also a quote using `>`: -->
-
-<!-- > "He who gives up [code] safety for [code] speed deserves neither." -->
-<!-- ([via](https://twitter.com/hadleywickham/status/504368538874703872)) -->

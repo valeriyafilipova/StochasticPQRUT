@@ -5,14 +5,14 @@
 \title{Extracts a set of hyetographs for POT events}
 \usage{
 stormp(pathmain = NULL, prpFt, prpWt, prpSpt, prpSt, p1, durt,
-  writeResults = TRUE, PDFplots = TRUE)
+  writeResults = FALSE, PDFplots = TRUE)
 }
 \arguments{
 \item{pathmain}{path to data, not needed if writeResults=FALSE}
 
 \item{prpFt, prpWt, prpSpt, prpSt}{dataframes that contain the POT for each season, not needed if writeResults=TRUE path}
 
-\item{p1}{dataframe of precipitation data with 1 hour timestep with columns Date "\%Y-\%m-\%d", time=\%H:\%M:\%S" and value)}
+\item{p1}{dataframe of precipitation data with 1 hour timestep with columns Date "\%d/\%m/\%Y", time=\%H:\%M:\%S" and value)}
 
 \item{durt}{critical duration}
 

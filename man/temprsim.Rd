@@ -14,7 +14,7 @@ temprsim(pathmain = NULL, incondFt, incondWt, incondSpt, incondSt, durt, tm,
 
 \item{durt}{critical duration in hours}
 
-\item{tm}{dataframe of temperature data with 1 hour timestep with columns Date "\%Y-\%m-\%d", time=\%H:\%M:\%S" and value)}
+\item{tm}{dataframe of temperature data with 1 hour timestep with columns Date "\%d/\%m/\%Y", time=\%H:\%M:\%S" and value)}
 }
 \value{
 returns csv files that contain temperature series for POT events

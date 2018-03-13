@@ -6,7 +6,7 @@
 #' @param qtT threshold quantile for POT (Peak over threshold) events
 #' @param Nsim number of simulations
 #' @param durt critical duration
-#' @param qobs observed streamflow data;  dataframe with columns Date ("\%Y-\%m-\%d/ \%H:\%M:\%S") and Q, if writeResults=TRUE path to csv file with columns date and Q
+#' @param qobs observed streamflow data;  dataframe with columns Date ("\%Y-\%m-\%d \%H:\%M:\%S") and Q, if writeResults=TRUE path to csv file with columns date and Q
 #' @param Qsim dataframe of simulated streamflow and snowmel data (otput from the function hydrolsim) , not needed if writeResults=TRUE
 #' @param Pint dataframe of simulated precipitation values (daily values)
 #' @param incond dataframe of initial conditions (soil moisture deficit, Qin and SWE) for each season

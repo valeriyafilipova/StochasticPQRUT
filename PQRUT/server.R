@@ -22,13 +22,16 @@ shinyServer( function(input, output) {
   )
   
  aR<-eventReactive(input$do1,{
+   withProgress(message = 'progress ', value = 0, {
    inFile <- input$QJ
    QJ<-  read.csv(inFile$datapath)
   # print(head(QJ))
    P=my_data()
+   incProgress(amount = 2/5)
    criticalduration(Q=QJ,P = P,qtT=input$qT,intEvent = 7,PDFplots = FALSE,writeResults = FALSE)
+
  })
-  
+ })
     observeEvent(input$do1, {
 
  output$plot1 <- renderPlot({
@@ -74,18 +77,18 @@ shinyServer( function(input, output) {
     SWE =  read.csv(inFile$datapath)
 
      a=aR()
-     incProgress(0/5, detail = paste("loading data"))
+     incProgress(amount = 0/5, detail = paste("loading data"))
     b=initcond(Qobs=Qd,sl=sl,
                POTF=a$POTF,POTW=a$POTW,POTSp=a$POTSp,POTS=a$POTS,SWE=SWE,Td=Td,durt=input$durt,PDFplots=FALSE,writeResults=FALSE)
    
      d=rainPOT(datarainfall = P,durt=input$durt,qFtset=input$qT1,qWtset=input$qT2,qSptset=input$qT3,qStset=input$qT4,distfunc=input$radio,writeResults = FALSE,PDFplots = FALSE)
-     incProgress(1/5, detail = paste("extracting hyetographs"))
+     incProgress(amount = 1/5, detail = paste("extracting hyetographs"))
       h=stormp(prpFt=d$pF,prpWt=d$PW,prpSpt=d$PSp,prpSt=d$PS,p1 = p1,durt=input$durt,writeResults=FALSE,PDFplots=FALSE)
-      incProgress(2/5, detail = paste("extracting T sequence"))
+      incProgress(amount = 2/5, detail = paste("extracting T sequence"))
       h1=temprsim(incondFt=b$ntp1F,incondWt=b$ntp1W,incondSpt=b$ntp1Sp,incondSt=b$ntp1S,durt=input$durt,tm=h1,writeResults=FALSE,PDFplots=FALSE)
-      incProgress(3/5, detail = paste("Generating T,P data"))
+      incProgress(amount = 3/5, detail = paste("Generating T,P data"))
        h=simulateP(Nsim=input$Nsim,durt=input$durt,distfunc=input$radio,hyet=h,TempSeq=h1,Pexp=d$par,writeResults=FALSE,PDFplots=FALSE)
-       incProgress(4/5, detail = paste("completed"))
+       incProgress(amount = 5/5, detail = paste("completed"))
      return(hbd=list(h=h,b=b,d=d))
     })
   })
@@ -93,34 +96,37 @@ shinyServer( function(input, output) {
   observeEvent(input$do2, {
 
 output$plot2 <- renderPlot({
-
+  withProgress(message = 'progress ', value = 0, {
   inFile <- input$PJ
   P =  read.csv(inFile$datapath)
     pathmain=input$stn
     qtT1=input$qT1
     par(mfrow=c(2,2))
+    incProgress(amount = 2/5)
     rainPOT(datarainfall = P,durt=input$durt,qFtset=qtT1,qWtset=input$qT2,qSptset=input$qT3,qStset=input$qT4,distfunc=input$radio,writeResults = FALSE,PDFplots = FALSE)
-
+  })
   })
   })
   observeEvent(input$do3,{
   
-  output$table1 <- renderTable({
+  output$table1 <- renderTable(caption="Precipitation depth for RP100",{
 
   hR1=hR()
   d=hR1$d
-  table1=data.frame("P100 09-11"=format(unname(d$rl[3]),digit=3),"P100 12-02"=format(unname(d$rl[6]),digit=3),
-          "P100 03-05="=format(unname(d$rl[9]),digit=3),"P100 06-08="=format(unname(d$rl[12]),digit=3))
+  table1=data.frame("SON"=format(unname(d$rl[3]),digit=3),"DJF"=format(unname(d$rl[6]),digit=3),
+          "MAM"=format(unname(d$rl[9]),digit=3),"JJA="=format(unname(d$rl[12]),digit=3))
 
   table1
   })
   })
   
   gincon<-eventReactive(input$do4,{
+    withProgress(message = ' progress ', value = 0, {
     hR1=hR()
     b=hR1$b
+    incProgress(amount = 2/5)
     gincon=initconditions(incondFt=b$ntp1F,incondWt=b$ntp1W,incondSpt=b$ntp1Sp,incondSt=b$ntp1S, Nsim=input$Nsim,durt=input$durt,writeResults=FALSE,PDFplots=FALSE)
-    
+    })
   })
   observeEvent(input$do4,{
   output$plot3<- renderPlot({

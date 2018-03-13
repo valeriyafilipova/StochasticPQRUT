@@ -6,7 +6,7 @@
 #' @param durt critical duration
 #' @param prp output from rainPOT
 #' @param prpFt,prpWt,prpSpt,prpSt  dataframes that contain the POT for each season, not needed if writeResults=TRUE path
-#' @param p1 dataframe of precipitation data with 1 hour timestep with columns Date "\%Y-\%m-\%d", time=\%H:\%M:\%S" and value)
+#' @param p1 dataframe of precipitation data with 1 hour timestep with columns Date "\%d/\%m/\%Y", time=\%H:\%M:\%S" and value)
 #' @return if writeResults is TRUE the results are saved in the directory pathmain if FALSE a list that  contains  dataframes of hyetographs for each season is returned
 #' @examples
 #' \dontrun{

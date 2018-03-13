@@ -75,13 +75,13 @@ shinyUI(
                  column(3,
                 
                  #" hourly P data,csv file with columns Date YYYY-mm-dd, time=HH:MM:SS and value"
-                 fileInput("Ph",label = h5(" hourly P data,csv file with columns Date YYYY-mm-dd, time=HH:MM:SS and value"),   accept = c(
+                 fileInput("Ph",label = h5(" hourly P data,csv file with columns Date(dd/mm/YYYY), time=HH:MM:SS and value"),   accept = c(
                    "text/csv",
                    "text/comma-separated-values,text/plain",
                    ".csv")),
                  # "hourly T data,csv file with columns Date YYYY-mm-dd, time=HH:MM:SS and value"
                  fileInput("h1",
-                           label = h5("hourly T data,csv file with columns Date YYYY-mm-dd, time=HH:MM:SS and value"), accept = c(
+                           label = h5("hourly T data,csv file with columns Date(YYYY-mm-dd), time=HH:MM:SS and value"), accept = c(
                              "text/csv",
                              "text/comma-separated-values,text/plain",
                              ".csv"))
@@ -141,7 +141,7 @@ shinyUI(
                           ),
                           column(3,
                                  #" hourly Q data,csv file with columns Date (dd/mm/YYYY HH:MM:SS) and Q"
-                          fileInput("Qh",label = h5(" hourly Q data"),   accept = c(
+                          fileInput("Qh",label = h5("hourly Q data,csv file with columns Date (dd/mm/YYYY HH:MM:SS) and Q"),   accept = c(
                             "text/csv",
                             "text/comma-separated-values,text/plain",
                             ".csv"))

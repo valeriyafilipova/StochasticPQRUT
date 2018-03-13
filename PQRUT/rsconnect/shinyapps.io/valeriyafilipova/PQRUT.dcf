@@ -5,8 +5,8 @@ account: valeriyafilipova
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 297392
-bundleId: 1263265
+bundleId: 1265151
 url: https://valeriyafilipova.shinyapps.io/PQRUT/
-when: 1520784232.52996
+when: 1520889839.2238
 asMultiple: FALSE
 asStatic: FALSE

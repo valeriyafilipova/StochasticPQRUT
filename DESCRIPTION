@@ -5,7 +5,7 @@ Version: 0.0.2
 Author: Valeriya Filipova <valeriya.filipova@usn.no>
 Maintainer: Valeriya Filipova <valeriya.filipova@usn.no>
 Description: Implements the Stochastic PQRUT model for estimating return levels for flood events
-License: What license is it under?
+License: MIT License
 LazyData: TRUE
 RoxygenNote: 6.0.1
 Suggests: knitr,
@@ -38,5 +38,3 @@ Collate:
     'simInitcond.R'
     'smrainflFt624intmatr100000lapply.R'
     'tmSim.R'
-
-    
