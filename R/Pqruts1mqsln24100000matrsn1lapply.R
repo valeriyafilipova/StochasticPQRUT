@@ -29,7 +29,7 @@
 #' }
 #' @include PQRUTmodln1a.R
 hydrolsim <- function(pathmain=NULL,ncl=4,seasn,param.station,Nsim,int1,Pt,E,durt
-                      ,Area1,kd,slconst=1,snpSpt=0.3,ttsnow=-1,Tmax=0.5,Tmin=0.5,ncl=4,writeResults=FALSE,PDFplots=FALSE) {
+                      ,Area1,kd,slconst=1,snpSpt=0.3,ttsnow=-1,Tmax=0.5,Tmin=0.5,writeResults=FALSE,PDFplots=FALSE) {
 
   mq=NULL
   snmSWE=NULL

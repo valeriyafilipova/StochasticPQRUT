@@ -45,7 +45,8 @@ shinyUI(
                             label = h5("Threshold quantile"),value=0.9,step=0.01),
                actionButton("do1", "Submit")
                ),
-                 mainPanel( plotOutput("plot1"), 
+                 mainPanel( helpText("Calculates critical duration,based on lag between Q and P values:"),
+                   plotOutput("plot1"), 
                             textOutput("text1")
                             )
                )
@@ -109,12 +110,12 @@ shinyUI(
                  actionButton("do4", "Submit")
                ),
               
-               mainPanel( plotOutput("plot3") )
+               mainPanel( helpText("Comparison between generated values and input values:"),plotOutput("plot3") )
              )
              ),
              tabPanel("Simulate events",
                      fluidPage(
-              
+                       h4("PQRUT parameters:"),
                           # Make a list of checkboxes
                           fluidRow(
                             column(3, 
@@ -149,7 +150,7 @@ shinyUI(
                           ),
                           actionButton("do5", "Submit")
                         ),
-                        mainPanel( plotOutput("plot4") )
+                        mainPanel( helpText("Calculate CDF:"),plotOutput("plot4") )
                       )
              )
              # tabPanel("Explore events",
