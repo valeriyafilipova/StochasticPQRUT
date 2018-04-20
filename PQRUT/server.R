@@ -87,7 +87,6 @@ shinyServer( function(input, output) {
       incProgress(amount = 2/5, detail = paste("extracting T sequence"))
       h1=temprsim(incondFt=b$ntp1F,incondWt=b$ntp1W,incondSpt=b$ntp1Sp,incondSt=b$ntp1S,durt=input$durt,tm=h1,writeResults=FALSE,PDFplots=FALSE)
       incProgress(amount = 3/5, detail = paste("Generating T,P data"))
-      gc()
        h=simulateP(Nsim=input$Nsim,ncl = 2,durt=input$durt,distfunc=input$radio,hyet=h,TempSeq=h1,Pexp=d$par,writeResults=FALSE,PDFplots=FALSE)
        incProgress(amount = 5/5, detail = paste("completed"))
      return(hbd=list(h=h,b=b,d=d))
@@ -168,13 +167,13 @@ output$plot2 <- renderPlot({
     incProgress(0, detail = paste("season 09-11"))
     gFT= hydrolsim(seasn="Ft",ncl =2,param.station=c(input$K1,input$K2,input$T),Nsim=input$Nsim,int1=gincon1$SWEFt,Pt=as.matrix(h[[1]]),E=h[[5]],durt=input$durt,Area1=input$Area,kd=input$Kd,snpSpt=0.3,ttsnow=-1,Tmax=input$Tmelt,Tmin=input$Tmelt,writeResults=FALSE,PDFplots=FALSE)
     incProgress(1/4, detail = paste(" season 12-02"))
-    gc()
+    
      gWT= hydrolsim(seasn="Wt",ncl =2,param.station=c(input$K1,input$K2,input$T),Nsim=input$Nsim,int1=gincon1$SWEFt,Pt=as.matrix(h[[2]]),E=h[[6]],durt=input$durt,Area1=input$Area,kd=input$Kd,snpSpt=0.3,ttsnow=-1,Tmax=input$Tmelt,Tmin=input$Tmelt,writeResults=FALSE,PDFplots=FALSE)
      incProgress(2/4, detail = paste("season 03-05"))
-     gc()
+   
       gSpT= hydrolsim(seasn="Spt",ncl = 2,param.station=c(input$K1,input$K2,input$T),Nsim=input$Nsim,int1=gincon1$SWEFt,Pt=as.matrix(h[[3]]),E=h[[7]],durt=input$durt,Area1=input$Area,kd=input$Kd,snpSpt=0.3,ttsnow=-1,Tmax=input$Tmelt,Tmin=input$Tmelt,writeResults=FALSE,PDFplots=FALSE)
      incProgress(3/4, detail = paste(" season 06-08"))
-     gc()
+   
      gST= hydrolsim(seasn="St",ncl = 2,param.station=c(input$K1,input$K2,input$T),Nsim=input$Nsim,int1=gincon1$SWEFt,Pt=as.matrix(h[[4]]),E=h[[8]],durt=input$durt,Area1=input$Area,kd=input$Kd,snpSpt=0.3,ttsnow=-1,Tmax=input$Tmelt,Tmin=input$Tmelt,writeResults=FALSE,PDFplots=FALSE)
     return(list( gFT= gFT,gWT=gWT,  gSpT=  gSpT,gST=gST))
   })

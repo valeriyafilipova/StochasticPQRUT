@@ -28,7 +28,7 @@
 #' g= hydrolsim(seasn="Ft",param.station=c(0.2,0.1,10),Nsim=1000,int1=g$SWEFt,Pt=as.matrix(h[[1]]),E=h[[5]],durt=24,Area1=500,kd=2,modelsnow="Snow.sim",slconst=1,snpSpt=0.3,ttsnow=-1,Tmax=0.5,Tmin=0.5,writeResults=FALSE,PDFplots=FALSE)
 #' }
 #' @include PQRUTmodln1a.R
-hydrolsim <- function(pathmain=NULL,seasn,param.station,Nsim,int1,Pt,E,durt
+hydrolsim <- function(pathmain=NULL,ncl=4,seasn,param.station,Nsim,int1,Pt,E,durt
                       ,Area1,kd,slconst=1,snpSpt=0.3,ttsnow=-1,Tmax=0.5,Tmin=0.5,ncl=4,writeResults=FALSE,PDFplots=FALSE) {
 
   mq=NULL

@@ -14,6 +14,7 @@ shinyUI(
                "Critical duration",
                sidebarLayout(
                  sidebarPanel(
+                  h3("Input data:"),
                    #"observed Q data;csv file with columns with columns date (YYYY-mm-dd) and Q"
                   fileInput("QJ",label = h5("observed Q data;",br(),"csv file with columns with columns date (YYYY-mm-dd) and Q"),   accept = c(
                     "text/csv",
