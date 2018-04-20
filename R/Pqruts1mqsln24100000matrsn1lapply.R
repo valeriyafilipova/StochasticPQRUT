@@ -20,6 +20,7 @@
 #' @param ttsnow temperature threshold for snow, below this temperature the snowmodel is activated
 #' @param Tmax max T for snow melt
 #' @param Tmin min T for snowmelt
+#' @param ncl number of cluster, used for parallel processing
 #' @return csv file with columns Q and snowmelt
 #' @export
 #' @examples
@@ -28,7 +29,7 @@
 #' }
 #' @include PQRUTmodln1a.R
 hydrolsim <- function(pathmain=NULL,seasn,param.station,Nsim,int1,Pt,E,durt
-                      ,Area1,kd,slconst=1,snpSpt=0.3,ttsnow=-1,Tmax=0.5,Tmin=0.5,writeResults=FALSE,PDFplots=FALSE) {
+                      ,Area1,kd,slconst=1,snpSpt=0.3,ttsnow=-1,Tmax=0.5,Tmin=0.5,ncl=4,writeResults=FALSE,PDFplots=FALSE) {
 
   mq=NULL
   snmSWE=NULL
@@ -44,7 +45,7 @@ hydrolsim <- function(pathmain=NULL,seasn,param.station,Nsim,int1,Pt,E,durt
   Pt=matrix(scan(paste(path1,"/tp.txt",sep=""),n=durt*Nsim),durt,Nsim,byrow=TRUE)
   E=matrix(scan(paste(pathmain,"/evtExp/",seasn,"/T/tn.txt",sep=""),n=durt*Nsim),durt,Nsim,byrow=TRUE)
   }
-  cl=makeCluster(4)
+  cl=makeCluster(ncl)
   registerDoParallel(cl)
 
     qm=foreach(k=1:Nsim,.combine = "rbind") %dopar% {

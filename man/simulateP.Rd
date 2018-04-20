@@ -5,7 +5,7 @@
 \title{Simulates precipitation and temperature sequence.}
 \usage{
 simulateP(pathmain = NULL, Nsim, durt, distfunc, Pexp, hyet, TempSeq,
-  writeResults = FALSE, PDFplots = FALSE)
+  ncl = 4, writeResults = FALSE, PDFplots = FALSE)
 }
 \arguments{
 \item{pathmain}{path to files, not needed if writeResults=FALSE}
@@ -19,7 +19,8 @@ simulateP(pathmain = NULL, Nsim, durt, distfunc, Pexp, hyet, TempSeq,
 \item{Pexp}{parameters of the fitted rainfall distribution not needed if writeResults=TRUE}
 
 \item{hyet}{list of dataframes of  hyetographs for each season, output from  stormp not needed if writeResults=TRUE
-@param TempSeq list of dataframes of temperature series for each season, output from  temprsim not needed if writeResults=TRUE}
+@param TempSeq list of dataframes of temperature series for each season, output from  temprsim not needed if writeResults=TRUE
+ @param ncl number of cluster, used for parallel processing}
 }
 \value{
 a matrix with each column giving the P/T sequence for a flood event

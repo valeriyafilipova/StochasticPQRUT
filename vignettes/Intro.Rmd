@@ -1,11 +1,13 @@
 ---
-title: "Stochastic PQRUT"
+title: "Vignette Title"
+author: "Vignette Author"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteEngine{knitr::knitr}
-  %\VignetteIndexEntry{Title of your vignette}
-  %\usepackage[UTF-8]{inputenc}
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
 ---
 
 This R package implements the Stochastic PQRUT model, which performs flood frequency analysis of simulated discharge values.The model simulates Precipitation, temperature  and initial conditions and uses deterministic rainfall-runoff model PQRUT to obtain the final discharge values. The return periods are estimated using plotting positions. The analysis is performed using seasonal values but currently the seasonal split is hard coded to season 1= "9-11",season 2="12-2",season 3="3-5",season 4="6-8".

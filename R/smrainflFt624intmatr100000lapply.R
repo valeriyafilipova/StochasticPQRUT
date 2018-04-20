@@ -13,6 +13,7 @@
 #' @param  Pexp parameters of the fitted rainfall distribution not needed if writeResults=TRUE
 #' @param hyet list of dataframes of  hyetographs for each season, output from  stormp not needed if writeResults=TRUE
 #'  @param TempSeq list of dataframes of temperature series for each season, output from  temprsim not needed if writeResults=TRUE
+#'   @param ncl number of cluster, used for parallel processing
 #' @import extRemes
 #' @import  foreach
 #' @import  parallel
@@ -23,7 +24,7 @@
 #'\dontrun{
 #' h=simulateP(Nsim=1000,durt=24,distfunc="GP",hyet=h,TempSeq=h1,Pexp=d$par,writeResults=FALSE,PDFplots=FALSE)
 #' }
-simulateP <- function(pathmain=NULL,Nsim,durt,distfunc,Pexp, hyet,TempSeq,writeResults=FALSE,PDFplots=FALSE) {
+simulateP <- function(pathmain=NULL,Nsim,durt,distfunc,Pexp, hyet,TempSeq,ncl=4,writeResults=FALSE,PDFplots=FALSE) {
   #  rainsimulate1("F:/FlomQ/62.5",Nsim=100000,durt=24,distfunc="GP")
 
   seasn1=c("Ft","Wt","Spt","St")
@@ -62,7 +63,7 @@ simulateP <- function(pathmain=NULL,Nsim,durt,distfunc,Pexp, hyet,TempSeq,writeR
     if(writeResults==TRUE){
     dir.create(paste(pathmain,"/evtExp/",seasn,"/P",sep=""))
     }
-    cl=makeCluster(4)
+    cl=makeCluster(ncl)
     registerDoParallel(cl)
     mn=list()
     if(writeResults==TRUE){
