@@ -5,12 +5,14 @@
 \title{Simulates discharge values from a set of input P,T files
 and initial conditions}
 \usage{
-hydrolsim(pathmain = NULL, seasn, param.station, Nsim, int1, Pt, E, durt,
-  Area1, kd, slconst = 1, snpSpt = 0.3, ttsnow = -1, Tmax = 0.5,
-  Tmin = 0.5, ncl = 4, writeResults = FALSE, PDFplots = FALSE)
+hydrolsim(pathmain = NULL, ncl = 4, seasn, param.station, Nsim, int1, Pt, E,
+  durt, Area1, kd, slconst = 1, snpSpt = 0.3, ttsnow = -1, Tmax = 0.5,
+  Tmin = 0.5, writeResults = FALSE, PDFplots = FALSE)
 }
 \arguments{
 \item{pathmain}{path to files, not needed if writeResults=FALSE}
+
+\item{ncl}{number of cluster, used for parallel processing}
 
 \item{seasn}{season}
 
@@ -39,8 +41,6 @@ hydrolsim(pathmain = NULL, seasn, param.station, Nsim, int1, Pt, E, durt,
 \item{Tmax}{max T for snow melt}
 
 \item{Tmin}{min T for snowmelt}
-
-\item{ncl}{number of cluster, used for parallel processing}
 
 \item{modelsnow}{type of snow model (Snow.sim or snow)}
 }

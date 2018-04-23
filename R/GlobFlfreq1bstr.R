@@ -34,7 +34,7 @@ annualfreqplot <- function(pathmain=NULL,qtT,Nsim,durt,qobs,Qsim,Pint,nsy,incond
     Qsim1=c(mqFt[,1],mqWt[,1],mqSpt[,1],mqSt[,1])
     qobs=read.csv(paste0(pathmain,"/",this.station,".csv"),sep=" ",skip=1,stringsAsFactors = FALSE)
   }else{
-    Qsim1=do.call(rbind,Qsim)
+    Qsim1=do.call(c,Qsim)
 
   }
   qobs$Date=as.POSIXct( qobs$Date)

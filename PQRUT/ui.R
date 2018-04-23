@@ -66,14 +66,14 @@ shinyUI(
                  actionButton("do3", "Generate P,T values")),
                  column(3,
                  numericInput("qT1",
-                              label = h5("Threshold quantile for season 09-11"),value=0.9,step=0.01),
+                              label = h5("Threshold quantile for season 09-11"),value=0.98,step=0.01),
                  numericInput("qT2",
-                              label = h5("Threshold quantile for season 12-02"),value=0.9,step=0.01)),
+                              label = h5("Threshold quantile for season 12-02"),value=0.98,step=0.01)),
                  column(3,
                  numericInput("qT3",
-                              label = h5("Threshold quantile for season 03-05"),value=0.9,step=0.01),
+                              label = h5("Threshold quantile for season 03-05"),value=0.98,step=0.01),
                  numericInput("qT4",
-                              label = h5("Threshold quantile for season 06-08"),value=0.9,step=0.01)),
+                              label = h5("Threshold quantile for season 06-08"),value=0.98,step=0.01)),
                  column(3,
                 
                  #" hourly P data,csv file with columns Date YYYY-mm-dd, time=HH:MM:SS and value"

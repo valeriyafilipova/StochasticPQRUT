@@ -10,4 +10,4 @@ install.packages("devtools")
 library("devtools")
 
 
-install_github("valeriyafilipova/StochasticPQRUT")
+install_github("valeriyafilipova/StochasticPQRUT, build_vignettes = TRUE")

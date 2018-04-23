@@ -144,10 +144,10 @@ points(qsim[[1]],type="l",col="green")
 10. Simulate discharge values. The model PQRUT is used to simulate discharge values. The model was calibrated using method described in Filipova 2016.
 ```{r echo=TRUE, fig.height=5, fig.width=5, warning=FALSE,message=FALSE}
 
-gFT= hydrolsim(seasn="Ft",param.station=c(0.1138291,0.028429,19.85680),Nsim=Nsim,int1=gincon$SWEFt,Pt=as.matrix(h[[1]]),E=h[[5]],durt=24,Area1=157,kd=2.8,snpSpt=0.3,ttsnow=-1,Tmax=0.5,Tmin=0.5,writeResults=FALSE,PDFplots=FALSE)
-gWT= hydrolsim(seasn="Ft",param.station=c(0.1138291,0.028429,19.85680),Nsim=Nsim,int1=gincon$SWEFt,Pt=as.matrix(h[[2]]),E=h[[6]],durt=24,Area1=157,kd=2.8,snpSpt=0.3,ttsnow=-1,Tmax=0.5,Tmin=0.5,writeResults=FALSE,PDFplots=FALSE)
-gSpT= hydrolsim(seasn="Ft",param.station=c(0.1138291,0.028429,19.85680),Nsim=Nsim,int1=gincon$SWEFt,Pt=as.matrix(h[[3]]),E=h[[7]],durt=24,Area1=157,kd=2.8,snpSpt=0.3,ttsnow=-1,Tmax=0.5,Tmin=0.5,writeResults=FALSE,PDFplots=FALSE)
-gST= hydrolsim(seasn="Ft",param.station=c(0.1138291,0.028429,19.85680),Nsim=Nsim,int1=gincon$SWEFt,Pt=as.matrix(h[[4]]),E=h[[8]],durt=24,Area1=157,kd=2.8,snpSpt=0.3,ttsnow=-1,Tmax=0.5,Tmin=0.5,writeResults=FALSE,PDFplots=FALSE)
+gFT= hydrolsim(seasn="Ft",ncl=2,param.station=c(0.1138291,0.028429,19.85680),Nsim=Nsim,int1=gincon$SWEFt,Pt=as.matrix(h[[1]]),E=h[[5]],durt=24,Area1=157,kd=2.8,snpSpt=0.3,ttsnow=-1,Tmax=0.5,Tmin=0.5,writeResults=FALSE,PDFplots=FALSE)
+gWT= hydrolsim(seasn="Ft",ncl=2,param.station=c(0.1138291,0.028429,19.85680),Nsim=Nsim,int1=gincon$SWEFt,Pt=as.matrix(h[[2]]),E=h[[6]],durt=24,Area1=157,kd=2.8,snpSpt=0.3,ttsnow=-1,Tmax=0.5,Tmin=0.5,writeResults=FALSE,PDFplots=FALSE)
+gSpT= hydrolsim(seasn="Ft",ncl=2,param.station=c(0.1138291,0.028429,19.85680),Nsim=Nsim,int1=gincon$SWEFt,Pt=as.matrix(h[[3]]),E=h[[7]],durt=24,Area1=157,kd=2.8,snpSpt=0.3,ttsnow=-1,Tmax=0.5,Tmin=0.5,writeResults=FALSE,PDFplots=FALSE)
+gST= hydrolsim(seasn="Ft",ncl=2,param.station=c(0.1138291,0.028429,19.85680),Nsim=Nsim,int1=gincon$SWEFt,Pt=as.matrix(h[[4]]),E=h[[8]],durt=24,Area1=157,kd=2.8,snpSpt=0.3,ttsnow=-1,Tmax=0.5,Tmin=0.5,writeResults=FALSE,PDFplots=FALSE)
 
 ```
 

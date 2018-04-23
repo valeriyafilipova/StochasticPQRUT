@@ -47,7 +47,7 @@ hydrolsim <- function(pathmain=NULL,ncl=4,seasn,param.station,Nsim,int1,Pt,E,dur
   }
   cl=makeCluster(ncl)
   registerDoParallel(cl)
-
+    if(ncl>1){
     qm=foreach(k=1:Nsim,.combine = "rbind") %dopar% {
       tm1=data.frame(P=Pt[,k],E=E[,k])
       ## hydrological model
@@ -55,6 +55,17 @@ hydrolsim <- function(pathmain=NULL,ncl=4,seasn,param.station,Nsim,int1,Pt,E,dur
      a= PQRUT(int1=int1,tm1=tm1,param.station=param.station,kd=kd,durt=durt,Area1=Area1,slconst=slconst,snpSpt = snpSpt
             ,ttsnow = ttsnow,Tmax=Tmax,Tmin=Tmin)
       return(max(a[[1]]))
+    }
+    }else{
+      qm=rep(NA,Nsim)
+        for(k in 1:Nsim){
+        tm1=data.frame(P=Pt[,k],E=E[,k])
+        ## hydrological model
+        int2=int1[k,]
+        a= PQRUT(int1=int1,tm1=tm1,param.station=param.station,kd=kd,durt=durt,Area1=Area1,slconst=slconst,snpSpt = snpSpt
+                 ,ttsnow = ttsnow,Tmax=Tmax,Tmin=Tmin)
+        qm[k]=(max(a[[1]]))
+    }
     }
     if(writeResults==TRUE){
     write.table(qm,paste(pathmain,"/sim/",seasn,"/SWEsnm.txt",sep=""))
