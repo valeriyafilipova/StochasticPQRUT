@@ -92,7 +92,7 @@ shinyUI(
                  
                ),
                mainPanel( plotOutput("plot2"),
-                          tableOutput("table1")
+                        textOutput("text2")
                           )
              )
              ),

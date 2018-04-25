@@ -109,15 +109,15 @@ output$plot2 <- renderPlot({
   })
   })
   observeEvent(input$do3,{
-  
-  output$table1 <- renderTable(caption="Precipitation depth for RP100",{
+    #output$text5 <- renderText({ "completed" })
+  output$text2 <- renderText({
 
   hR1=hR()
   d=hR1$d
-  table1=data.frame("SON"=format(unname(d$rl[3]),digit=3),"DJF"=format(unname(d$rl[6]),digit=3),
-          "MAM"=format(unname(d$rl[9]),digit=3),"JJA="=format(unname(d$rl[12]),digit=3))
-
-  table1
+  N=input$Nsim
+  # table1=data.frame("SON"=format(unname(d$rl[3]),digit=3),"DJF"=format(unname(d$rl[6]),digit=3),
+       #   "MAM"=format(unname(d$rl[9]),digit=3),"JJA="=format(unname(d$rl[12]),digit=3))
+ print(paste("Generated", N, "values"))
   })
   })
   
