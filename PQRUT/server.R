@@ -10,7 +10,7 @@
 library(shiny)
 library(shinyFiles)
 library(StochasticPQRUT)
-
+set.seed(567)
 shinyServer( function(input, output) {
   
   my_data=reactive({
@@ -81,13 +81,13 @@ shinyServer( function(input, output) {
     b=initcond(Qobs=Qd,sl=sl,
                POTF=a$POTF,POTW=a$POTW,POTSp=a$POTSp,POTS=a$POTS,SWE=SWE,Td=Td,durt=input$durt,PDFplots=FALSE,writeResults=FALSE)
    
-     d=rainPOT(datarainfall = P,durt=input$durt,qFtset=input$qT1,qWtset=input$qT2,qSptset=input$qT3,qStset=input$qT4,distfunc=input$radio,writeResults = FALSE,PDFplots = FALSE)
+     d=rainPOT(datarainfall = P,durt=input$durt,qFtset=input$qT1,qWtset=input$qT2,qSptset=input$qT3,qStset=input$qT4,distfunc="GP",writeResults = FALSE,PDFplots = FALSE)
      incProgress(amount = 1/5, detail = paste("extracting hyetographs"))
       h=stormp(prpFt=d$pF,prpWt=d$PW,prpSpt=d$PSp,prpSt=d$PS,p1 = p1,durt=input$durt,writeResults=FALSE,PDFplots=FALSE)
       incProgress(amount = 2/5, detail = paste("extracting T sequence"))
       h1=temprsim(incondFt=b$ntp1F,incondWt=b$ntp1W,incondSpt=b$ntp1Sp,incondSt=b$ntp1S,durt=input$durt,tm=h1,writeResults=FALSE,PDFplots=FALSE)
       incProgress(amount = 3/5, detail = paste("Generating T,P data"))
-       h=simulateP(Nsim=input$Nsim,ncl = 2,durt=input$durt,distfunc=input$radio,hyet=h,TempSeq=h1,Pexp=d$par,writeResults=FALSE,PDFplots=FALSE)
+       h=simulateP(Nsim=input$Nsim,ncl = 2,durt=input$durt,distfunc="GP",hyet=h,TempSeq=h1,Pexp=d$par,writeResults=FALSE,PDFplots=FALSE)
        incProgress(amount = 5/5, detail = paste("completed"))
      return(hbd=list(h=h,b=b,d=d))
     })
@@ -103,7 +103,7 @@ output$plot2 <- renderPlot({
     qtT1=input$qT1
     par(mfrow=c(2,2))
     incProgress(amount = 2/5)
-    rainPOT(datarainfall = P,durt=input$durt,qFtset=qtT1,qWtset=input$qT2,qSptset=input$qT3,qStset=input$qT4,distfunc=input$radio,writeResults = FALSE,PDFplots = FALSE)
+    rainPOT(datarainfall = P,durt=input$durt,qFtset=qtT1,qWtset=input$qT2,qSptset=input$qT3,qStset=input$qT4,distfunc="GP",writeResults = FALSE,PDFplots = FALSE)
 
     })
   })
