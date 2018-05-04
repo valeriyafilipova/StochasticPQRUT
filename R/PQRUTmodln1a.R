@@ -5,8 +5,8 @@ PQRUT=function(int1,tm1,kd,durt,param.station,snpSpt=snpSpt,Area1,slconst=1,ttsn
   # http://www.usask.ca/hydrology/papers/Marks_et_al_2013.pdf
 
  
-  qo=int1[1]*3.6/Area1
-  SWE=int1[2]
+  qo=as.numeric(int1[1])*3.6/Area1
+  SWE=as.numeric(int1[2])
 
  colnames(tm1)=c("P","E")
 
@@ -25,7 +25,7 @@ PQRUT=function(int1,tm1,kd,durt,param.station,snpSpt=snpSpt,Area1,slconst=1,ttsn
   #soil saturation
   if(slconst==1){
     S1=rep(0,durt)
-    lp=int1[3]
+    lp=as.numeric(int1[3])
     if(lp<0){
       lp=0
     }
