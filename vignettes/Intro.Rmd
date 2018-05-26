@@ -11,7 +11,7 @@ This R package implements the Stochastic PQRUT model, which performs flood frequ
 
 ```{r include=FALSE}
 library(StochasticPQRUT)
- set.seed(567)
+ 
   data(Qd)
   data(P)
     data(SWE)
@@ -22,10 +22,10 @@ library(StochasticPQRUT)
        data(Td)
 ```
 
-1. Load the library and define number of simulations
+1. Load the library,set seed and define number of simulations
 ```{r echo=TRUE}
 library(StochasticPQRUT)
-
+set.seed(567)
   Nsim=10000
 ```
 

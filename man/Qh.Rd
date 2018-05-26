@@ -3,7 +3,7 @@
 \docType{data}
 \name{Qh}
 \alias{Qh}
-\title{Discharge values for stN 16.193 , hourly timestep"}
+\title{Discharge values for station 16.193 (in Norway) , hourly timestep"}
 \format{A data frame with:
 \describe{
   \item{date}{time column}

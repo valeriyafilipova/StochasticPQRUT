@@ -133,9 +133,7 @@ shinyUI(
                           column(3, 
                                  numericInput("Kd",
                                               label = h5("Kd"),value = 2.85,step=0.01)),
-                          column(3, 
-                                 numericInput("Tmelt",
-                                              label = h5("Tmelt"),value = 0.5,step=0.01)),
+                    
                 
                           column(3,
                                  numericInput("Area",

@@ -4,7 +4,7 @@
 \name{P}
 \alias{P}
 \alias{P}
-\title{Precipitation data for stN 16.193 , daily timestep}
+\title{Precipitation data for station 16.193 (in Norway) , daily timestep}
 \format{A data frame with:
 \describe{
   \item{date}{date column}

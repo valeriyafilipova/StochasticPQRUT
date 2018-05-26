@@ -3,7 +3,7 @@
 \docType{data}
 \name{Td}
 \alias{Td}
-\title{Temperature data for stN 16.193 , daily timestep}
+\title{Temperature data for station 16.193 (in Norway) , daily timestep}
 \format{A data frame with:
 \describe{
   \item{date}{date column}

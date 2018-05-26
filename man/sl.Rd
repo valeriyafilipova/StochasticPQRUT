@@ -3,7 +3,7 @@
 \docType{data}
 \name{sl}
 \alias{sl}
-\title{soil moisture deficit data for stN 16.193 , daily timestep}
+\title{soil moisture deficit data for station 16.193 (in Norway) , daily timestep}
 \format{A data frame with:
 \describe{
   \item{date}{date column}

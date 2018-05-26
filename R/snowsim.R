@@ -2,7 +2,7 @@
 #' @export
 ###from Hydromad
 snow.sim <-
-  function(E,P, Tmax, Tmin, kd, kf, rcap, Tmelt = Tmin,
+  function(E,P, Tmax, Tmin, kd, kf, rcap, Tmelt = 0,
            cr = 1, cs = 1, LSWE_0 = 0, ISWE_0 = SWE) {
 
     ## check values

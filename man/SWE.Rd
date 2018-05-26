@@ -3,7 +3,7 @@
 \docType{data}
 \name{SWE}
 \alias{SWE}
-\title{snow water equivalent data for stN 16.193 , daily timestep}
+\title{snow water equivalent data for station 16.193 (in Norway) , daily timestep}
 \format{A data frame with:
 \describe{
   \item{date}{date column}
