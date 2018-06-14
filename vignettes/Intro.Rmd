@@ -45,7 +45,7 @@ The function returns a list, containing the critical duration and dataframes of 
 
 
 3. Split the precipitation values into seasons and fit GPD or Exponential distribution to POT events using the extRemes package. The parameters qFtset,qWtset,qWtset,qSptset are the threshold quantiles that are used to extract the POT events. These events do not coincide with the events, extracted in step 1.
-```{r echo=TRUE,fig.height=5, fig.width=5,message=FALSE}
+```{r echo=TRUE,fig.height=5, fig.width=5,message=FALSE, results="hide"}
 
 d=rainPOT(datarainfall=P,pathmain,durt=24,qFtset=0.98,qWtset=0.99,qSptset=0.99,qStset=0.98,distfunc="GP",
           writeResults=FALSE,PDFplots=FALSE)
