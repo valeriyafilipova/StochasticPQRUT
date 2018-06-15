@@ -23,9 +23,7 @@ Imports:
  parallel,
  RColorBrewer,
  cowplot,
- hydroGOF,
- knitr,
- rmarkdown
+ hydroGOF
 Collate: 
     'Asmoothcor.R'
     'GlobFlfreq1bstr.R'
