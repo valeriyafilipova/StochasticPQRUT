@@ -1,6 +1,6 @@
 ## ----include=FALSE-------------------------------------------------------
 library(StochasticPQRUT)
- set.seed(567)
+ 
   data(Qd)
   data(P)
     data(SWE)
@@ -12,17 +12,17 @@ library(StochasticPQRUT)
 
 ## ----echo=TRUE-----------------------------------------------------------
 library(StochasticPQRUT)
-
+set.seed(567)
   Nsim=10000
 
 ## ----echo=TRUE, fig.height=5, fig.width=5,message=FALSE------------------
   data(Qd);data(P)
    head(Qd); head(P)
 
-## ----fig.height=5, fig.width=5-------------------------------------------
+## ----fig.height=5, fig.width=7-------------------------------------------
 a=criticalduration(Q=Qd,P=P,qtT=0.9,PDFplots=FALSE,intEvent=7,writeResults=FALSE)
 
-## ----echo=TRUE, fig.height=5, fig.width=5,message=FALSE------------------
+## ----echo=TRUE,fig.height=5, fig.width=5,message=FALSE, results="hide"----
 
 d=rainPOT(datarainfall=P,pathmain,durt=24,qFtset=0.98,qWtset=0.99,qSptset=0.99,qStset=0.98,distfunc="GP",
           writeResults=FALSE,PDFplots=FALSE)
@@ -31,7 +31,7 @@ d=rainPOT(datarainfall=P,pathmain,durt=24,qFtset=0.98,qWtset=0.99,qSptset=0.99,q
   data(sl);data(SWE);data(Td)
    head(sl); head(SWE); head(Td)
 
-## ----echo=TRUE, fig.height=10, fig.width=10, warning=FALSE,message=FALSE----
+## ----echo=TRUE, fig.height=5, fig.width=7, warning=FALSE,message=FALSE----
 
 b=initcond(Qobs=Qd,sl=sl,
            POTF=a$POTF,POTW=a$POTW,POTSp=a$POTSp,POTS=a$POTS,SWE=SWE,Td=Td,durt=a$d,PDFplots=FALSE,writeResults=FALSE)
@@ -49,7 +49,7 @@ head(h1)
 #error due to NULL values in sequence
 h1=temprsim(incondFt=b$ntp1F,incondWt=b$ntp1W,incondSpt=b$ntp1Sp,incondSt=b$ntp1S,durt=24,tm=h1,writeResults=FALSE,PDFplots=FALSE)
 
-## ----echo=TRUE, fig.height=5, fig.width=10, warning=FALSE, message=FALSE----
+## ----echo=TRUE, fig.height=5, fig.width=7, warning=FALSE, message=FALSE----
 layout(matrix(1:4, nrow=2))
 gincon=initconditions(incondFt=b$ntp1F,incondWt=b$ntp1W,incondSpt=b$ntp1Sp,incondSt=b$ntp1S, Nsim=Nsim,durt=a$d,writeResults=FALSE,PDFplots=FALSE)
 #plot for season "09-11"

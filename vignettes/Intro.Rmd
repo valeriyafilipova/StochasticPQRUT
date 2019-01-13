@@ -7,7 +7,7 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
-This R package implements the Stochastic PQRUT model, which performs flood frequency analysis.The model simulates Precipitation, temperature  and initial conditions and uses deterministic rainfall-runoff model PQRUT to obtain the final discharge values. The return periods are estimated using plotting positions. The analysis is performed using seasonal values but currently the seasonal split is hard coded to season 1= "9-11",season 2="12-2",season 3="3-5",season 4="6-8".
+This R package implements the Stochastic PQRUT model, which performs flood frequency analysis.The model simulates Precipitation, temperature  and initial conditions and uses the deterministic rainfall-runoff model PQRUT to obtain the final discharge values. The return periods are estimated using plotting positions. The analysis is performed using seasonal values but currently the seasonal split is hard coded to season 1= "9-11",season 2="12-2",season 3="3-5",season 4="6-8".
 
 ```{r include=FALSE}
 library(StochasticPQRUT)
@@ -68,7 +68,7 @@ b=initcond(Qobs=Qd,sl=sl,
 
 ```
 
-5.Extract hyetographs for flood events. This function matches the dates for the POT events, extracted in step 3 to  hourly precipitation dataset. It is assumed that the daily data is recorded at 6 am.
+5.Extract hyetographs for flood events. This function matches the dates for the POT events, extracted in step 3 to hourly precipitation dataset. It is assumed that the daily data is recorded at 6 am.
 ```{r echo=TRUE, fig.height=5, fig.width=5, warning=FALSE,message=FALSE}
 #load data data(p1)
 head(p1)
@@ -92,7 +92,7 @@ gincon=initconditions(incondFt=b$ntp1F,incondWt=b$ntp1W,incondSpt=b$ntp1Sp,incon
 print(gincon$plot1)
 ```
 
-8.Simulate precipitation and temperature values and disaggregate to 1 hour. This function uses the parameters of the GPD , obtained in step 2 and the results of step 5 and step 6.
+8.Simulate precipitation and temperature values and disaggregate to 1 hour. This function uses the parameters of the GPD, obtained in step 2 and the results of step 5 and step 6.
 ```{r echo=TRUE, fig.height=5, fig.width=5, warning=FALSE,message=FALSE}
  h=simulateP(Nsim=Nsim,durt=24,distfunc="GP",hyet=h,TempSeq=h1,Pexp=d$par,writeResults=FALSE,PDFplots=FALSE)
 ```

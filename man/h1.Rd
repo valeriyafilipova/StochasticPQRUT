@@ -3,7 +3,7 @@
 \docType{data}
 \name{h1}
 \alias{h1}
-\title{Temperature data for station 16.193 (in Norway) , hourly timestep}
+\title{Temperature data for stN 16.193 , hourly timestep}
 \format{A data frame with:
 \describe{
   \item{date}{date column}

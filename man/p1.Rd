@@ -3,7 +3,7 @@
 \docType{data}
 \name{p1}
 \alias{p1}
-\title{Precipitation data for station 16.193 (in Norway) , hourly timestep}
+\title{Precipitation data for stN 16.193 , hourly timestep}
 \format{A data frame with:
 \describe{
   \item{date}{date column}

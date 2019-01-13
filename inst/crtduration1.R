@@ -15,7 +15,7 @@
 #' @examples
 #' \dontrun{
 #'  criticalduration(Q="62.5QJ.csv",P="PJ1.txt",qtT=0.9,PDFplots=TRUE,intEvent=7,writeResults=TRUE)
-#'  criticalduration(Q=Qd,PJ=P,qtT=0.9,PDFplots=TRUE,intEvent=7,writeResults=FALSE)
+#'  criticalduration(Q=Qd,P=P,qtT=0.9,PDFplots=TRUE,intEvent=7,writeResults=FALSE)
 #'}
 #' @export
 
@@ -31,11 +31,14 @@ criticalduration<- function(Q,P,qtT=0.9,PDFplots=TRUE,intEvent=7,writeResults=TR
 
   PQ=merge(Q,P,by="date",keep="all")
 
+  
+  
   #correlate with P lag 1,2,3 and 4
-  PQ$P1=c(0,PQ$Pr[1:(nrow(PQ)-1)])
-  PQ$P2=c(0,0,PQ$Pr[1:(nrow(PQ)-2)])
-  PQ$P3=c(0,0,0,PQ$Pr[1:(nrow(PQ)-3)])
-  PQ$P4=c(0,0,0,0,PQ$Pr[1:(nrow(PQ)-4)])
+
+  PQ$P1=filter(PQ$Pr, filter=rep(1,2), sides=1)
+  PQ$P2= filter(PQ$Pr, filter=rep(1,3), sides=1)
+  PQ$P3=filter(PQ$Pr, filter=rep(1,4), sides=1)
+  PQ$P4=filter(PQ$Pr, filter=rep(1,5), sides=1)
 
 
   #split by month and select POT events for each season, seperated by IntEvent time
@@ -122,13 +125,16 @@ criticalduration<- function(Q,P,qtT=0.9,PDFplots=TRUE,intEvent=7,writeResults=TR
   print(ggpairs(prptallm[,2:7],title ="POT events Annual"))
   cornm=as.data.frame(cor(prptallm[,2:7]))
 
-  durt=24
-  if(abs(cornm$P1[1])>=0.25){
-    durt=48
-  }else if (abs(cornm$P2[1])>=0.25){
-    durt=72
-  }else if (abs(cornm$P3[1])>=0.3){
-    durt=96
+  durtm=which.max(cornm[1,2:5])
+  #durt=24
+  if(durtm==1){
+    durt=24
+  }
+  if(durtm==2){
+   durt=48 
+  }
+  if(durtm==3){
+    durt=72 
   }
   if(writeResults==TRUE){
     dir.create(paste0(pathmain,"/Exp",durt,"new"))
@@ -139,7 +145,7 @@ criticalduration<- function(Q,P,qtT=0.9,PDFplots=TRUE,intEvent=7,writeResults=TR
     write.table(prptWt,paste0(pathmain,"/Exp",durt,"new/Q",durt,"Wtnew.txt"))
     write.table(prptSt,paste0(pathmain,"/Exp",durt,"new/Q",durt,"Stnew.txt"))
   }else{
-    res=list(d=durt,POTF=prptFt,POTW=prptWt,POTSp=prptSpt,POTS=prptSt)
+    res=list(d=durt,POTF=prptFt,POTW=prptWt,POTSp=prptSpt,POTS=prptSt,m=cornm)
     return(res)
   }
   if(PDFplots==TRUE){

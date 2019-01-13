@@ -3,7 +3,7 @@
 \docType{data}
 \name{Qd}
 \alias{Qd}
-\title{Discharge values for station 16.193 (in Norway) , hourly timestep}
+\title{Discharge values for stN 16.193 , hourly timestep}
 \format{A data frame with:
 \describe{
   \item{Date}{date column, NA is used for missing values}

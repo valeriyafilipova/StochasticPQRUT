@@ -2,8 +2,8 @@ Package: StochasticPQRUT
 Type: Package
 Title: Functions for Stochastic PQRUT
 Version: 0.0.2
-Author: Valeriya Filipova <valeriya.filipova@usn.no>
-Maintainer: Valeriya Filipova <valeriya.filipova@usn.no>
+Author: Valeriya Filipova <valeriya.filipova@jbarisk.com>
+Maintainer: Valeriya Filipova <valeriya.filipova@jbarisk.com>
 Description: Implements the Stochastic PQRUT model for estimating return levels for flood events
 License: MIT License
 LazyData: TRUE
@@ -38,3 +38,4 @@ Collate:
     'simInitcond.R'
     'smrainflFt624intmatr100000lapply.R'
     'tmSim.R'
+    
